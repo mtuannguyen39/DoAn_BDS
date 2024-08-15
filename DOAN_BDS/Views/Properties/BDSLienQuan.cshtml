@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DOAN_BDS.Models.Property>
+
+@{
+    ViewBag.Title = "BDSLienQuan";
+    Layout = null;
+}
+
+
+<div class="row">
+    @foreach (var pro in Model)
+    {
+        <a href="/Properties/ViewDetails/@pro.ID" class="btn btn-dafault">
+            <div class="card">
+                <div id="font-chu">
+                    <img src="@Url.Content(pro.HinhAnh)" height="200" width="200" />
+                    <p class="font-text">@Html.DisplayFor(model => pro.TenBatDongSan)</p>
+
+                </div>
+            </div>
+        </a>
+
+    }
+</div>

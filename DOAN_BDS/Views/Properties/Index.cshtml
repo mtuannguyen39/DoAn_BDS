@@ -1,0 +1,103 @@
+﻿@*@model IEnumerable<DOAN_BDS.Models.Property>*@
+@using DOAN_BDS.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Property>
+@{
+    ViewBag.Title = "Bất động sản";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<style>
+    .category {
+        display: flex;
+        border: 1px solid #888888;
+        margin-top: 30px;
+        margin-left: 300px;
+        margin-right: 300px;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+        justify-content: space-between;
+        cursor: pointer; 
+    }
+
+        .category:hover {
+            transform: translateY(-5px);
+        }
+
+    .img-cate {
+        width: 300px;
+        border-radius: 10px;
+    }
+
+    .cate-des {
+        margin-top: 35px;
+        font-size: 16px;
+        width: 500px;
+    }
+
+    .cate-des-head {
+
+    }
+
+    .cate-text {
+        font-size: 20px;
+    }
+
+    .cate-end {
+        margin-right: 100px;
+        margin-top: 50px;
+        width: 200px;
+    }
+
+
+    .end-header {
+        font-size: 20px;
+        margin-left: 37px;
+    }
+
+    .cate-text-price {
+        margin-top: 10px;
+        font-size: 20px;
+        margin-left: 10px;
+        font-weight: 700;
+        color: red;
+    }
+
+    li {
+        display: inline;
+    }
+    .page-product {
+        font-size: 20px;
+        list-style: none;
+        margin-left: 100px;
+    }
+</style>
+
+<div class="wrapper">
+    <p style="font-size: 30px; font-weight: bold; font-family: 'Global Sans Serif'; margin-top: 50px;">DANH MỤC BẤT ĐỘNG SẢN</p>
+    @foreach (var pro in Model)
+    {
+        <div class="category">
+            <a href="/Properties/ViewDetails/@pro.ID">
+                <img src="@Url.Content(pro.HinhAnh)" height="100%" width="300" class="img-cate" />
+
+            </a>
+            <a href="/Properties/ViewDetails/@pro.ID">
+                <div class="cate-des">
+                    <h3 class="cate-des-head">@Html.DisplayFor(model => pro.TenBatDongSan) </h3>
+                    <p class="cate-text">Loại phòng: @Html.DisplayFor(model => pro.Category.TenDanhMuc)</p>
+                    <p class="cate-text">Giá: @Html.DisplayFor(model => pro.Gia) @Html.DisplayFor(model => pro.DVT)</p>
+                </div>
+            </a>
+        </div>
+    }
+
+    <ul class="page-property">
+        <li class="card-li">Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber) / @Model.PageCount</li>
+        <ul id="ul_page_property">
+            <li>
+                @Html.PagedListPager(Model, Page => Url.Action("Index", new { page = Page }))
+            </li>
+        </ul>
+    </ul>
+</div>

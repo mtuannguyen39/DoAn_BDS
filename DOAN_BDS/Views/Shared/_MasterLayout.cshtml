@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/css/styles.css">
+    <link rel="stylesheet" href="~/Content/css/global.css" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <a href="/Home/Main">
+            <img class="logo" src="~/Content/img/batdongsan-low-resolution-logo-black-on-transparent-background.png" alt="BatDongSan" />
+        </a>
+        <nav class="nav">
+            <ul class="nav__links">
+                <li>
+                    <a href="/Properties/Index">Nhà đất bán</a>
+                </li>
+                <li><a href="#">Dự án</a></li>
+                <li><a href="#">Tin tức</a></li>
+                <li><a href="#">Danh bạ</a></li>
+            </ul>
+        </nav>
+        <nav class="nav-right">
+            <div class="login">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav_log">
+                        @if (Session["TenDangNhap"] == null)
+                        {
+                            <a class="dnhap" href="/Users/LoginCus"><span class="glyphicon glyphicon-user"></span> Đăng nhập </a>
+                        }
+                        else
+                        {
+                        }
+                    </li>
+
+                    <li class="format-hello" onclick="toggleMenu()">
+                        @if (Session["TenDangNhap"] == null)
+                        {
+                        }
+                        else
+                        {
+
+                            <a class="dnhap" href="#"> <span class="glyphicon glyphicon-log-in"> <text> Hello </text> @Session["HoTen"]</span></a>
+
+                        }
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        @if (Session["TenDangNhap"] == null)
+        {
+
+        }
+        else
+        {
+            bool trangthai = (bool)Session["TrangThai"];
+            if (trangthai == false)
+            {
+
+
+            }
+            else
+            {
+                <a class="cta" href="/Properties/Create"><button class="btn-dangtin">Đăng tin</button></a>
+            }
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+
+                    @if (Session["TenDangNhap"] == null)
+                    {
+
+                    }
+                    else
+                    {
+                        <div class="sub-menu-link">
+                            <a class="link-text" href="/Users/Edit/@HttpContext.Current.Session["ID"].ToString()">Thông tin</a>
+                            <span class="span-right">></span>
+                        </div>
+                    }
+                    @if (Session["TenDangNhap"] == null)
+                    {
+
+                    }
+                    else
+                    {
+                        <div class="sub-menu-link">
+                            <a href="/UpdateCart/Index" class="link-text">Nâng cấp gói thành viên</a>
+                            <span class="span-right">></span>
+                        </div>
+                    }
+
+                    @if (Session["TenDangNhap"] == null)
+                    {
+
+                    }
+                    else
+                    {
+                        <div class="sub-menu-link">
+                            <a href="/Users/LogOutUser" class="link-text">Đăng xuất</a>
+                            <span class="span-right">></span>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        }
+
+
+    </header>
+
+
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>company</h4>
+                    <ul>
+                        <li><a href="#">about us</a></li>
+                        <li><a href="#">our services</a></li>
+                        <li><a href="#">privacy policy</a></li>
+                        <li><a href="#">affiliate program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>get help</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">payment options</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>follow us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let subMenu = document.getElementById("subMenu")
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu")
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

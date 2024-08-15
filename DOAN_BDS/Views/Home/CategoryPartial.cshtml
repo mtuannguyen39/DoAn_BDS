@@ -1,0 +1,42 @@
+﻿@model List<DOAN_BDS.Models.Category>
+<style>
+    .ul-cate a {
+        color: black;
+    }
+
+    .ul-cate {
+        display: flex;
+    }
+
+    li {
+        list-style: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #button {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-right: 5px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    #button:hover {
+        transform: translateY(-5px);
+    }
+</style>
+<div class="ul-cate">
+    @{
+        foreach (var item in Model)
+        {
+            <div id="button">
+                <div class="button-value">
+                    <div>
+                        @Html.ActionLink(item.TenDanhMuc, "Index", "Properties", new { category = item.ID }, "")
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+

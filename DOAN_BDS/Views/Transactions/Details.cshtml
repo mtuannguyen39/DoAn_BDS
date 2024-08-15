@@ -1,0 +1,58 @@
+﻿@model DOAN_BDS.Models.Transaction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayGiaoDich)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayGiaoDich)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaGiaoDich)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaGiaoDich)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiGiaoDich)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiGiaoDich)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Property.TenBatDongSan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Property.TenBatDongSan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.TenDangNhap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.TenDangNhap)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

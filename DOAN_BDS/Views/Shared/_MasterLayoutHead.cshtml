@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/css/styles.css">
+    <link rel="stylesheet" href="~/Content/css/global.css" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" />
+</head>
+<body>
+    <header class="header">
+        <a href="/Home/Main">
+            <img class="logo" src="~/Content/img/batdongsan-low-resolution-logo-black-on-transparent-background.png" alt="BatDongSan" />
+        </a>
+        <nav class="nav">
+            <ul class="nav__links">
+                <li><a href="#">Nhà đất bán</a></li>
+                <li><a href="#">Nhà đất cho thuê</a></li>
+                <li><a href="#">Dự án</a></li>
+                <li><a href="#">Tin tức</a></li>
+                <li><a href="#">Danh bạ</a></li>
+            </ul>
+        </nav>
+        <a class="dnhap" href="#">Đăng nhập</a>
+        <a class="cta" href="#"><button class="btn-dangtin">Đăng tin</button></a>
+
+        
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

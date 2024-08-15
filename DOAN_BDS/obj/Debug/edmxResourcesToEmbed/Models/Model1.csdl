@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DOAN_BDSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DOAN_BDSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="DOAN_BDSModel.Category" />
+    <EntitySet Name="Properties" EntityType="DOAN_BDSModel.Property" />
+    <EntitySet Name="Transactions" EntityType="DOAN_BDSModel.Transaction" />
+    <EntitySet Name="Users" EntityType="DOAN_BDSModel.User" />
+    <AssociationSet Name="FK__Propertie__IDdan__5165187F" Association="DOAN_BDSModel.FK__Propertie__IDdan__5165187F">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Property" EntitySet="Properties" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Propertie__IDdan__5070F446" Association="DOAN_BDSModel.FK__Propertie__IDdan__5070F446">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Property" EntitySet="Properties" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__BatDo__5535A963" Association="DOAN_BDSModel.FK__Transacti__BatDo__5535A963">
+      <End Role="Property" EntitySet="Properties" />
+      <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__BatDo__5441852A" Association="DOAN_BDSModel.FK__Transacti__BatDo__5441852A">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <EntitySet Name="AdminUsers" EntityType="DOAN_BDSModel.AdminUser" />
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TenDanhMuc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Properties" Relationship="DOAN_BDSModel.FK__Propertie__IDdan__5165187F" FromRole="Category" ToRole="Property" />
+  </EntityType>
+  <EntityType Name="Property">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TenBatDongSan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DienTich" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Gia" Type="Double" />
+    <Property Name="DVT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LoaiBatDongSan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SoPhongNgu" Type="Int32" />
+    <Property Name="SoPhongTam" Type="Int32" />
+    <Property Name="TienIch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiDangTinID" Type="Int32" />
+    <Property Name="PhiDangTin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IDdanhmuc" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="DOAN_BDSModel.FK__Propertie__IDdan__5165187F" FromRole="Property" ToRole="Category" />
+    <NavigationProperty Name="User" Relationship="DOAN_BDSModel.FK__Propertie__IDdan__5070F446" FromRole="Property" ToRole="User" />
+    <NavigationProperty Name="Transactions" Relationship="DOAN_BDSModel.FK__Transacti__BatDo__5535A963" FromRole="Property" ToRole="Transaction" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="NgayGiaoDich" Type="DateTime" Precision="0" />
+    <Property Name="GiaGiaoDich" Type="Double" />
+    <Property Name="LoaiGiaoDich" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiDungID" Type="Int32" />
+    <Property Name="BatDongSanID" Type="Int32" />
+    <NavigationProperty Name="Property" Relationship="DOAN_BDSModel.FK__Transacti__BatDo__5535A963" FromRole="Transaction" ToRole="Property" />
+    <NavigationProperty Name="User" Relationship="DOAN_BDSModel.FK__Transacti__BatDo__5441852A" FromRole="Transaction" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TenDangNhap" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="HoTen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="QuyenHan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <NavigationProperty Name="Properties" Relationship="DOAN_BDSModel.FK__Propertie__IDdan__5070F446" FromRole="User" ToRole="Property" />
+    <NavigationProperty Name="Transactions" Relationship="DOAN_BDSModel.FK__Transacti__BatDo__5441852A" FromRole="User" ToRole="Transaction" />
+  </EntityType>
+  <Association Name="FK__Propertie__IDdan__5165187F">
+    <End Type="DOAN_BDSModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="DOAN_BDSModel.Property" Role="Property" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Property">
+        <PropertyRef Name="IDdanhmuc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Propertie__IDdan__5070F446">
+    <End Type="DOAN_BDSModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="DOAN_BDSModel.Property" Role="Property" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Property">
+        <PropertyRef Name="NguoiDangTinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__BatDo__5535A963">
+    <End Type="DOAN_BDSModel.Property" Role="Property" Multiplicity="0..1" />
+    <End Type="DOAN_BDSModel.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="BatDongSanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__BatDo__5441852A">
+    <End Type="DOAN_BDSModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="DOAN_BDSModel.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="NguoiDungID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AdminUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="NameUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RoleUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,210 @@
+﻿@model IEnumerable<DOAN_BDS.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<style>
+    h2 {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .productcont {
+        display: flex;
+        margin-left: 350px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+    }
+
+    .product {
+        padding: 1em;
+        border: 1px solid #E0E4CC;
+        margin-right: 1em;
+        border-radius: 5px;
+        width: 300px;
+        height: 200px;
+    }
+
+    p {
+        white-space: pre-line;
+    }
+
+    .cart-container {
+        border: 1px solid #E0E4CC;
+        border-radius: 5px;
+        margin-top: 1em;
+        padding: 1em;
+    }
+
+
+    button, input[type="submit"] {
+        border: 1px solid #FA6900;
+        color: #fff;
+        background: #F38630;
+        padding: 0.6em 1em;
+        font-size: 1em;
+        line-height: 1;
+        border-radius: 1.2em;
+        transition: color 0.2s ease-in-out, background 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    }
+
+        button:hover, button:focus, button:active, input[type="submit"]:hover, input[type="submit"]:focus, input[type="submit"]:active {
+            background: #A7DBD8;
+            border-color: #69D2E7;
+            color: #000;
+            cursor: pointer;
+        }
+</style>
+
+<h2>Nâng cấp gói thành viên</h2>
+
+<div class="productcont">
+    <div class="product">
+        <h3 class="productname">Gói thường</h3>
+        <p>Bạn có thể đăng tin với giá rẻ</p>
+        <p class="price">1$</p>
+        
+        <button class="addtocart" style="margin-top: 49px;">
+            <a href="/UpdateCart/Upgrade/@Session["ID"]">Thanh Toán</a>
+        </button>
+    </div>
+    <div class="product">
+        <h3 class="productname">Gói vip</h3>
+        <p>Bạn có thể đăng tin với phiên bản nâng cấp hơn, nhiều chức năng hơn gói normal</p>
+        <p class="price">2$</p>
+        <button class="addtocart">
+            <a href="/UpdateCart/Upgrade/@Session["ID"]">Thanh Toán</a>
+        </button>
+    </div>
+    <div class="product">
+        <h3 class="productname">Gói Vip Pro</h3>
+        <p>Phiên bản nâng cấp hơn, có thể đăng tin không giới hạn</p>
+        <p class="price">5$</p>
+        <button class="addtocart" style="margin-top: 24px;">
+            <a href="/UpdateCart/Upgrade/@Session["ID"]">Thanh Toán</a>
+        </button>
+    </div>
+</div>
+
+<script>
+        /* get cart total from session on load */
+    updateCartTotal();
+
+    /* button event listeners */
+    document.getElementById("emptycart").addEventListener("click", emptyCart);
+    var btns = document.getElementsByClassName('addtocart');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function() {addToCart(this);});
+    }
+
+    /* ADD TO CART functions */
+
+    function addToCart(elem) {
+        //init
+        var sibs = [];
+        var getprice;
+        var getproductName;
+        var cart = [];
+         var stringCart;
+        //cycles siblings for product info near the add button
+        while(elem = elem.previousSibling) {
+            if (elem.nodeType === 3) continue; // text node
+            if(elem.className == "price"){
+                getprice = elem.innerText;
+            }
+            if (elem.className == "productname") {
+                getproductName = elem.innerText;
+            }
+            sibs.push(elem);
+        }
+        //create product object
+        var product = {
+            productname : getproductName,
+            price : getprice
+        };
+        //convert product data to JSON for storage
+        var stringProduct = JSON.stringify(product);
+        /*send product data to session storage */
+    
+        if(!sessionStorage.getItem('cart')){
+            //append product JSON object to cart array
+            cart.push(stringProduct);
+            //cart to JSON
+            stringCart = JSON.stringify(cart);
+            //create session storage cart item
+            sessionStorage.setItem('cart', stringCart);
+            addedToCart(getproductName);
+            updateCartTotal();
+        }
+        else {
+            //get existing cart data from storage and convert back into array
+           cart = JSON.parse(sessionStorage.getItem('cart'));
+            //append new product JSON object
+            cart.push(stringProduct);
+            //cart back to JSON
+            stringCart = JSON.stringify(cart);
+            //overwrite cart data in sessionstorage 
+            sessionStorage.setItem('cart', stringCart);
+            addedToCart(getproductName);
+            updateCartTotal();
+        }
+    }
+    /* Calculate Cart Total */
+    function updateCartTotal(){
+        //init
+        var total = 0;
+        var price = 0;
+        var items = 0;
+        var productname = "";
+        var carttable = "";
+        if(sessionStorage.getItem('cart')) {
+            //get cart data & parse to array
+            var cart = JSON.parse(sessionStorage.getItem('cart'));
+            //get no of items in cart 
+            items = cart.length;
+            //loop over cart array
+            for (var i = 0; i < items; i++){
+                //convert each JSON product in array back into object
+                var x = JSON.parse(cart[i]);
+                //get property value of price
+                price = parseFloat(x.price.split('$')[1]);
+                productname = x.productname;
+                //add price to total
+                carttable += "<tr><td>" + productname + "</td><td>$" + price.toFixed(2) + "</td></tr>";
+                total += price;
+            }
+        
+        }
+        //update total on website HTML
+        document.getElementById("total").innerHTML = total.toFixed(2);
+        //insert saved products to cart table
+        document.getElementById("carttable").innerHTML = carttable;
+        //update items in cart on website HTML
+        document.getElementById("itemsquantity").innerHTML = items;
+    }
+    //user feedback on successful add
+    function addedToCart(pname) {
+      var message = pname + " was added to the cart";
+      var alerts = document.getElementById("alerts");
+      alerts.innerHTML = message;
+      if(!alerts.classList.contains("message")){
+         alerts.classList.add("message");
+      }
+    }
+    /* User Manually empty cart */
+    function emptyCart() {
+        //remove cart session storage object & refresh cart totals
+        if(sessionStorage.getItem('cart')){
+            sessionStorage.removeItem('cart');
+            updateCartTotal();
+          //clear message and remove class style
+          var alerts = document.getElementById("alerts");
+          alerts.innerHTML = "";
+          if(alerts.classList.contains("message")){
+              alerts.classList.remove("message");
+          }
+        }
+    }
+</script>

@@ -1,0 +1,145 @@
+﻿@model DOAN_BDS.Models.Property
+
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<style>
+    .container-det {
+        width: 1170px;
+        background: #FFF;
+        border: 2px solid black;
+        border-radius: 20px;
+        padding-top: 5px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 40px 60px;
+        margin-left: 207px;
+        margin-top: 80px;
+    }
+    .container-des {
+        width: 1170px;
+        background: #FFF;
+        border: 2px solid black;
+        border-radius: 20px;
+        padding-top: 5px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 40px 60px;
+        margin-left: 207px;
+        margin-bottom: 20px;
+    }
+    .img {
+        border-radius: 20px;
+        margin-right: 20px;
+        width: 382px;
+        height: 219px;
+    }
+    .row-right{
+        display: flex;
+    }
+    .btn-lh {
+        margin-bottom: 5px;
+    }
+    .row-point{
+
+    }
+    .row-list {
+        display: flex; 
+        justify-content: space-between;
+    }
+    .list-left{
+        margin-left: 100px;
+    }
+    .list-right {
+        margin-right: 100px;
+    }
+
+    .des-more {
+        display: flex;
+    }
+
+    .text-large {
+        font-size: 24px;
+    }
+</style>
+
+<div class="container-det">
+    <div class="row-right">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="@Html.DisplayFor(model => model.HinhAnh)" class="img"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row ">
+                <div class="col-md-12">
+                    <h1> @Html.DisplayFor(model => model.TenBatDongSan)</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-primary">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-outline-primary btn-lh">
+                        Liên hệ ngay
+                    </button>
+                </div>
+            </div>
+
+            <hr />
+
+            <ul class="list-group">
+                <li class="list-group-item"><span class="font-weight-bold"> Vị trí - </span>@Html.DisplayFor(model => model.DiaChi)</li>
+                <li class="list-group-item"><span class="font-weight-bold"> Giá - </span>@Html.DisplayFor(model => model.Gia) @Html.DisplayFor(model => model.DVT) </li>
+            </ul>
+        </div>
+        
+    </div>
+</div>
+
+<div class="container-des">
+    <div class="row">
+        <h1>MÔ TẢ BẤT ĐỘNG SẢN</h1>
+        <div class="col-md-12">
+            <p> @Html.DisplayFor(model => model.MoTa)</p>
+        </div>
+    </div>
+    <div class="row-point">
+        <h1>ĐĂC ĐIỂM BẤT ĐỘNG SẢN</h1>
+        <div class="row-list">
+            <ul class="list-group list-left">
+                <li class="list-group-item"><span class="font-weight-bold"> Số phòng ngủ - </span>@Html.DisplayFor(model => model.SoPhongNgu)</li>
+                <li class="list-group-item"><span class="font-weight-bold"> Số phòng tắm - </span>@Html.DisplayFor(model => model.SoPhongTam)</li>
+                <li class="list-group-item"><span class="font-weight-bold"> Diện tích - </span>@Html.DisplayFor(model => model.DienTich)</li>
+            </ul>
+            <ul class="list-group list-right">
+                <li class="list-group-item"><span class="font-weight-bold"> Mức giá - </span>@Html.DisplayFor(model => model.Gia) @Html.DisplayFor(model => model.DVT) </li>
+                <li class="list-group-item"><span class="font-weight-bold"> Tiện ích - </span>@Html.DisplayFor(model => model.TienIch)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-des">
+    <div class="row">
+        <h1>THÔNG TIN NGƯỜI ĐĂNG</h1>
+        <div class="row-list">
+            <ul class="list-group list-left">
+                <li class="list-group-item text-large"><span class="font-weight-bold "> Họ tên - </span>@Html.DisplayFor(model => model.User.HoTen)</li>
+                <li class="list-group-item text-large"><span class="font-weight-bold "> Số điện thoại - </span>@Html.DisplayFor(model => model.User.DienThoai)</li>
+                <li class="list-group-item text-large"><span class="font-weight-bold "> Địa chỉ - </span>@Html.DisplayFor(model => model.User.DiaChi)</li>
+            </ul>
+        </div>
+    </div>
+</div>

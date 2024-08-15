@@ -1,0 +1,156 @@
+﻿@model IEnumerable<DOAN_BDS.Models.Property>
+
+@{
+    ViewBag.Title = "ADIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+
+<style>
+    .input-box {
+        position: relative;
+        height: 76px;
+        max-width: 900px;
+        width: 100%;
+        background-color: #fff;
+        margin: 0 20px;
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 128px;
+    }
+
+        .input-box i,
+        .input-box .button-search {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .input-box i {
+            left: 20px;
+            font-size: 30px;
+            color: #707070;
+        }
+
+        .input-box #SearchString {
+            height: 100%;
+            margin-top: 30px;
+            width: 100%;
+            outline: none;
+            font-size: 18px;
+            font-weight: 400;
+            border: none;
+            padding: 0 155px 0 65px;
+            background-color: transparent;
+        }
+
+        .input-box .button-search {
+            right: 20px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            background-color: #4070f4;
+            cursor: pointer;
+        }
+
+            .input-box .button-search:active {
+                transform: translateY(-50%) scale(0.98);
+            }
+
+    .description {
+        max-width: 100px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-wrap: break-word;
+        border-right: 1px solid black;
+    }
+
+    .container-index {
+        width: 1174px;
+        font-size: 16px;
+    }
+</style>
+
+
+<h2>Sản phẩm</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateAD")
+</p>
+<div class="input-box">
+    @using (Html.BeginForm("ADIndex", "Properties", FormMethod.Get))
+    {
+        <i class="uil uil-search"></i>
+        @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Search here..." })
+        <button class="button-search">Search</button>
+    }
+
+</div>
+<div class="container-index">
+    <table class="table">
+        <tr>
+            <th><p>Tên Bất động sản</p></th>
+            <th>Địa chỉ</th>
+            <th>Diện tích</th>
+            <th>Giá</th>
+            <th>DVT</th>
+            <th>Loại bất động sản</th>
+            <th>Số phòng ngủ</th>
+            <th>Số phòng tắm</th>
+            <th> @Html.DisplayNameFor(model => model.MoTa)</th>
+            <th>Hình ảnh</th>
+            <th>Tên danh mục</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.TenBatDongSan)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.DienTich)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.Gia)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.DVT)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.SoPhongNgu)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.SoPhongTam)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.HinhAnh)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.Category.TenDanhMuc)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
